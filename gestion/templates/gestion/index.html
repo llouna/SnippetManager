@@ -1,0 +1,77 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}Index{% endblock %}
+{% block body %}
+<div class="indexfixe">
+    <div class="blocIndex">
+        <img id="logoSnippet"  src="{% static 'gestion/images/logo_snippet_manager.svg' %}" width="100%">
+        <div class="newsnippet">
+            {% if verifgroup == False %}
+            <a href="{% url 'gestion:ajouter' %}">+ Nouveau snippet</a>
+            {% endif %}
+        </div>
+        <form class="recherche" action="{% url 'gestion:rechercheGlo' %}">
+            <input type="search" autocomplete="off" class="inputSearchIndex"
+                name="rechercheGlobal" 
+                placeholder="Recherche..."
+                hx-get="{% url 'gestion:rechercheGlo' %}"
+                hx-trigger="input"
+                hx-target="#search-results"
+                hx-push-url="true"   
+            />
+            <button type="submit" class="logosearch"></button>
+        </form>       
+    </div>
+    <div id="search-results">
+        <div class="results">
+            <p>Tout les snippets :</p>
+        </div>
+        {% if page_obj %}
+        <ul class="listIndex">
+            {% for snippet in page_obj %}
+                <li><a href="{% url 'gestion:detail' snippet.slug %}">{{ snippet.nom }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    
+        {% if page_obj.paginator.num_pages > 1 %}
+
+        <div class="pagination">
+            <!-- allez a la premier page -->
+            {% if page_obj.paginator.num_pages > 2 %}
+            <div class="premier">
+                <a class="pages" href="?page=1"> &laquo; première page</a>
+            </div>
+            {% else %}
+            <div></div>
+            {% endif %}
+            
+            <div class="page">
+                <span>
+                    {% if page_obj.has_previous %}
+                    <a class="pages" href="?page={{ page_obj.previous_page_number }}"> < </a>
+                    {% endif %}
+                    <span class="pagesur">
+                        Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a class="pages" href="?page={{ page_obj.next_page_number }}"> > </a>
+                    {% endif %}
+                </span>
+            </div>
+            <!-- allez a la dernière page -->
+            {% if page_obj.paginator.num_pages > 2 %}
+            <div class="dernier">
+                <a class="pages" href="?page={{ page_obj.paginator.num_pages }}"> dernière page &raquo;</a>
+            </div>
+            {% else %}
+            <div></div>
+            {% endif %}
+        </div>
+
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

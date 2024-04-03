@@ -1,0 +1,105 @@
+{% extends './base.html' %}
+
+{% block title %}Snippet{% endblock %}
+
+{% block body %}
+<div class="carddetails">
+
+    <div style="display: flex;justify-content: space-between;margin-top: 2px;">
+        <div>
+            {% if snippet.date_maj is not null%}
+            <p style="font-size: small;">Dernière modification : {{ snippet.date_maj }}</p>
+            {% else %}
+            <p> Date d'ajout : {{ snippet.date_ajout }}</p>
+            {% endif %}
+            <p class="auteur">Auteur : <a href="{% url 'gestion:viaAuteur' snippet.user.username %}">{{ snippet.user.username }}</a></p>
+        </div>
+        <div>
+            <form class="SupMSodifdetails" action="{% url 'gestion:supprimer' snippet.slug %}" method="POST">
+                {% csrf_token %}
+                {% for userpermi in permiUser %}
+                {% if utilisateur == userpermi.username %}
+                <button class="btnmodif" type="button" onclick="location.href='{% url 'gestion:modifier' snippet.slug %}'"></button>
+                {% endif %}
+                {% endfor %}
+                {% if utilisateur == snippet.user.username %}
+                <button class="btnsup" type="button" onclick="location.href='{% url 'gestion:supprimer' snippet.slug %}'"></button>
+                {% endif %}
+            </form>
+        </div>
+    </div>  
+    <h1 class="snippet">{{ snippet }}</h1>
+    <div class="description">
+        <p>{{ snippet.description }}</p>
+    </div>
+    <div class="code">
+        <div class="textareaCode">
+            <textarea id="codeDetails" >{{ snippet.code }}</textarea>
+        </div>
+        <div class="copyCode">
+            <button id="copy" ></button>
+        </div>
+    </div>
+    <div style="display: flex;justify-content: space-between;">
+        <div class="tags">
+        {% if tags_snippet %}
+            <p>Tags : {% for tag in tags_snippet %}<a href="{% url 'gestion:viaTags' tag.nom %}">{{ tag.nom }}, </a> {% endfor %}</p>
+        {% endif %}
+        </div>
+        <div class="langagesnippet">
+            <p>Langage :  <a href="{% url 'gestion:viaLangages' snippet.langage.nom %}">{{ snippet.langage }}</a></p>
+        </div>
+    </div>
+</div>
+<script>
+let code = CodeMirror.fromTextArea(document.getElementById("codeDetails"), {
+    lineNumbers: true,  
+    theme: 'base16-light',
+    startOpen: true,
+    mode: "{{ snippet.langage.nomCodeMirror }}",
+    readOnly: true,
+
+});
+
+let btncopy = document.getElementById('copy');
+btncopy.addEventListener("click", function(){
+    let codecopy = code.getValue();
+    navigator.clipboard.writeText(codecopy).then(function(){
+        alert("Le code est copié dans le presse papier !");
+    });
+});
+
+code.on("cursorActivity", function(){
+    code.doc.getAllMarks().forEach(marker => marker.clear());
+    let selectcode = code.getSelection()
+    if (!selectcode){
+        return;
+    }
+    let ligne = 0
+    let lignecolonne = []
+    let lengthselect = selectcode.length
+
+    code.eachLine( function(m){
+        let listmots = m.text.split(/[^a-zA-Z0-9^_]{1}/)
+        console.log(listmots)
+        let caractère = 0
+        for (let mots of listmots){
+            
+            if (mots == selectcode){
+                c = caractère
+                lignecolonne.push({line :ligne, ch: c})
+            }
+            caractère = caractère + mots.length + 1
+        }
+        
+        ligne = ligne + 1
+        
+    })
+    
+    for (let nbselect of lignecolonne){
+        let to = {line: nbselect.line, ch: nbselect.ch + lengthselect}
+        code.markText(nbselect, to, {css: "background-color: #f1dfdf;"})
+    }
+});
+</script>
+{% endblock %}

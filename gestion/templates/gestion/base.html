@@ -1,0 +1,90 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <script src="{% static 'gestion/highlight.min.js' %}"></script>
+    <script src="{% static 'gestion/codemirror.js' %}"></script>
+    <script src="{% static 'gestion/htmx.min.js' %}"></script>
+
+    <script src="{% static 'gestion/langage/javascript.js' %}"></script>
+    <script src="{% static 'gestion/langage/python.js' %}"></script>
+    <script src="{% static 'gestion/langage/php.js' %}"></script>
+    <script src="{% static 'gestion/langage/haxe.js' %}"></script>
+    <script src="{% static 'gestion/langage/xml.js' %}"></script>
+    <script src="{% static 'gestion/langage/clike.js' %}"></script>
+    <script src="{% static 'gestion/langage/htmlembedded.js' %}"></script>
+    <script src="{% static 'gestion/langage/htmlmixed.js' %}"></script>
+    <script src="{% static 'gestion/langage/css.js' %}"></script>
+    <script src="{% static 'gestion/langage/shell.js' %}"></script>
+    
+
+    <link rel="stylesheet" href="{% static 'gestion/style.css' %}">
+    <link rel="stylesheet" href="{% static 'gestion/default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'gestion/codemirror.css' %}">
+    <link rel="stylesheet" href="{% static 'gestion/base16-light.css' %}">
+    <link rel="alternate" type="application/rss+xml" href="{% url 'gestion:rss' %}" title="Snippet">
+</head>
+<body>
+    <div class="header">
+        <div style="display: flex;justify-content: space-between;width: 100%;">
+            <button type="button" class="logo" onclick="location.href='{% url 'gestion:index' %}'" style="margin-left: -12em;"><img  src="{% static 'gestion/images/logo_snippet_manager_dark.svg' %}" width="38%"></button>
+            {% if utilisateur and verifgroup == False %}
+            <a class="messnippet" href="{% url 'gestion:viaAuteur' utilisateur %}"><B>Mes Snippets</B></a> 
+            {% endif %}
+        </div>
+        <div class="zonelogout">
+            {% if utilisateur %}
+            <button type="button" class="btncodeco" onclick="location.href='{% url 'gestion:deconnexion' %}'"></button>
+            {% else %}
+            <button type="button" class="btnco" onclick="location.href='{% url 'gestion:connexion' %}'"></button>
+            {% endif %}
+        </div>
+    </div>     
+
+   <div class="content">
+        <nav class="navbar">
+            <div class="listnv" >
+            {% if tags_list %}
+                <h2>TAGS</h2>
+                <form class="recherche" action="{% url 'gestion:rechercheTag' %}" style="padding: 0;margin: 8px;">
+                    <input type="search" class="inputSearchNvbr" autocomplete="off" 
+                        name="rechercheTags" 
+                        placeholder="Recherche tags..." 
+                        id="searchSnippetTags"
+                        hx-get="{% url 'gestion:rechercheTag' %}"
+                        hx-trigger="input"
+                        hx-target="#search-resultTag"
+                        hx-push-url="true"
+                        >
+                    <button type="submit" class="logosearch" style="width: 30px;margin-top: 3px;height: 30px;"></button>
+                </form>
+                <div id="search-resultTag">
+                    <ul  class="navTags" id="navTags">
+                        {% for tag in tags_list %}
+                        <li><a href="{% url 'gestion:viaTags' tag.nom %}">{{ tag.nom }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+                <h2>LANGAGE</h2>
+                <ul  class="navTags">
+                    {% for langage in langages_list %}
+                    <li><a href="{% url 'gestion:viaLangages' langage.nom %}">{{ langage.nom }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+        <main class="affichage">
+                <div style="align-self: flex-start;">
+                    <button class="retour" onclick="history.back();">⊲</button><button class="avant" onclick="history.forward();">⊳</button>
+                </div>
+                {% block body %}{% endblock %}
+                <div></div>
+        </main>
+   </div>
+    <script src="{% static 'gestion/main.js' %}"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
+

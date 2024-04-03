@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Snippet</title>
+        <description>List de snippet</description>
+        <link>{{ settings.BASE_URL }}</link>
+    {% if snippets %}
+        {% for snippet in snippets %}
+        <item>
+            <title>{{ snippet.nom }}</title>
+            <description>{{ snippet.description }}</description>
+            {% load i18n %}
+            <pubDate>{% language 'en' %}{{ snippet.date_ajout|date:"r" }}{% endlanguage %}</pubDate>
+            <link>{% url 'gestion:detail' snippet.slug %}</link>
+        </item>
+        {% endfor %}
+    {% endif %} 
+    </channel>
+</rss>

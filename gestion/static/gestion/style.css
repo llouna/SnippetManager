@@ -1,0 +1,686 @@
+/* TOUT */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    background:linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+      ), url(/static/gestion/images/spirkop-pattern.png) ;
+}
+.affichage {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+a{
+    text-decoration: none;
+    cursor: pointer;
+}
+button{
+    background-color: #ef3838;
+    border-radius: 10px;
+    padding: 1px 5px 2px 5px;
+    border-color: #ef3838;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #d01e1e;
+    border-color: #d01e1e;
+}
+.messnippet{
+    color: white;
+    text-decoration: underline dotted rgb(117, 117, 117);
+    padding: 30px 20px 30px 20px;
+    font-size: 18px;
+    align-self: center;
+}
+.messnippet:hover {
+    background-color: rgba(255, 255, 255, 0.073);
+}
+.recherche{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    background-color: white;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 20px;
+}
+.recherche input {
+    border: none;
+}
+.recherche input:focus {
+    outline:none;
+}
+.logosearch {
+    background-image: url(images/search.svg);
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #00000000;
+}
+.logosearch:hover {
+    background-image: url(images/searchRed.svg);
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #00000000;
+}
+.blocIndex button{
+    width: 30px;
+    height: 30px;
+}
+
+/* header */
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    position: relative;
+    height:75px;
+    background-color:#262626;
+}
+.logo{
+    margin-left: 0.10em;
+    background-color: #00000000;
+    border: #00000000;
+}
+.logo:hover{
+    background-color: #00000000;
+    border-color: #00000000;
+}
+.zonelogout button{
+    background-color:#ffffff00 ;
+    border-color: #ffffff00;
+    background-repeat: no-repeat;
+    width: 33px;
+    height: 33px;
+    margin: 20px;
+}
+.zonelogout button:hover{
+    background-color:#ffffff00 ;
+    border-color: #ffffff00;
+    background-repeat: no-repeat;
+    width: 33px;
+    height: 33px;
+}
+.btncodeco {
+    background-image: url(images/logout.svg);
+}
+.btncodeco:hover {
+    background-image: url(images/logoutRed.svg);
+}
+.btnco {
+    background-image: url(images/login.svg);
+}
+.btnco:hover {
+    background-image: url(images/loginRed.svg);
+}
+.zonelogout {
+    background-color: #2f2f2f;
+    height: 100%;
+    
+}
+/* navbar */
+.content{
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+}
+.navbar {
+    flex-grow: 1;
+    width: 200px;
+    overflow-y: scroll;
+    background-color: #343434;
+    
+}
+.navbar a {
+    color :#ffffff;
+    text-decoration: underline dotted rgb(90, 90, 90);
+    margin: 0;
+    inline-size: 18em;
+    list-style-type: none;
+    overflow-wrap: break-word;
+}
+.navTags li{
+    margin-bottom: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    width: 180px;
+}
+.navTags li:hover{
+    background-color: #262626;
+}
+.inputSearchNvbr {
+    height: 14px;
+    width: 10em;
+    padding-left: 10px;
+}
+#navTags{
+    height: 248px;
+    overflow-y: scroll;
+    border-top: 1px #2d2d2d;
+    border-bottom: 1px #2d2d2d;
+    background-color: #303030;
+}
+.navbar h2{
+    color: #ece6e6;
+    margin-top: 2em;
+    margin-bottom: 10px;
+    background-color: #262626;
+    text-align: center;
+    font-size: 17px;
+}
+/* details d'un snippet */
+.carddetails{
+    border: 2px solid #ffffff;
+    padding: 1rem 3rem 5rem; 
+    width: 60em;
+    background-color:#ffffff;
+}
+.carddetails ul{
+    margin-left: 20em;
+}
+.snippet{
+    margin-top: 4rem;
+    text-align: center;
+    text-decoration-color: #262626;;
+    font-size: xx-large;
+}
+.description{
+    margin-top: 70px;
+    margin-right: 30px;
+    text-decoration-color: #262626;
+    font-size:large;
+}
+.code {
+    padding: 0.5rem;
+    margin-top: 55px;
+    border: 1px solid #ffffff;
+    font-size:larger;
+    display: flex;
+    background-color: #f5f5f5;
+}
+.textareaCode {
+    width: 100%;
+}
+.copyCode {
+    height: 80%;
+    width: 5%;
+    display: flex;
+    justify-content: end;
+}
+.copyCode button{
+    background-color: #00000000;
+    border-color: #00000000;
+    background-image: url('images/copy.svg');
+    background-repeat: no-repeat;
+    height: 1.8rem;
+    width: 1.8rem;
+}
+.copyCode button:hover{
+    background-color: #00000000;
+    border-color: #00000000;
+    background-image: url('images/copyRed.svg');
+    background-repeat: no-repeat;
+    height: 1.8rem;
+    width: 1.8rem;
+}
+.tags{
+    font-size: small;
+}
+.tags a{
+    color: #262626;
+    text-decoration: underline dotted gray;
+}
+.tags a:hover{
+    color:#ef3838;
+    text-decoration: underline dotted #ef3838;
+}
+.langagesnippet{
+    font-size: small;
+}
+.langagesnippet a{
+    background-color: rgba(231, 198, 198, 0.559);
+    color:#262626;
+    text-decoration: underline dotted gray;
+}
+.langagesnippet a:hover{
+    background-color: rgba(235, 157, 157, 0.609);
+    color:#000000;
+}
+.auteur a{
+    color: #262626;
+    background-color: #f1dfdf;
+    text-decoration: underline dotted rgb(124, 124, 124);
+}
+.auteur a:hover{
+  background-color: rgba(235, 157, 157, 0.609);
+  color: #000000;
+}
+.SupMSodifdetails button{
+    height: 1.7rem;
+    width: 1.7rem;
+    background-color: #00000000;
+    border-color: #00000000;
+}
+.SupMSodifdetails button:hover{
+    background-color: #00000000;
+    border-color: #00000000;
+}
+/* ajout d'un snippet */
+.card {
+    height: 100%;
+    width: 60em;
+    background-color:#ffffff;
+}
+.li-textarea > .CodeMirror {
+    min-height: 30em !important;;
+    width: 46.5rem !important;
+}
+/* ta = titre de la page ajouter */
+.ta{
+    margin-top: 30px;
+    text-decoration-color: #262626;;
+    font-size: xx-large;
+    text-align: center;
+}
+/* fa = formulaire de la page ajouter */
+.fa{
+    margin-top: 50px;
+    text-decoration-color: #262626;
+
+}
+.fa ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.ajoutSnippetForm{
+    margin-bottom: 1em;
+}
+.fa label {
+    display: inline-block;
+    width: 10em;
+    text-align: right;
+}
+.fa input{
+    height: 20px;
+    width: 53em;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 0.30rem;
+    padding: 0.20rem 0 0.30rem 0.70rem;;
+}
+.textdesc {
+    height: auto;
+    width: 44rem;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 0.30rem;
+    padding: 0.20rem 0 0.30rem 0.70rem;
+    margin-left: 10.3rem;
+    margin-top: -1.3rem;
+}
+.textdesc:focus {
+    outline:2px solid #494949;
+}
+.fa input:focus{
+    outline:2px solid #262626;
+
+}
+.erreur{
+    color: red;
+    display: inline-block;
+    margin-left: 10em;
+}
+select{
+    vertical-align: top;
+}
+.autorisation{
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 2rem;
+    
+}
+.autorisation input{
+    width: 2rem;
+    margin-left: 6rem;
+}
+.autorisation input:focus {
+    outline: none;
+}
+.permissionUser{
+    width: 10rem;
+    overflow-y: scroll;
+    height: 6rem;
+    background-color: #f5f5f5;
+    border-radius: 0.30rem;
+    border: 1px solid #ccc;
+}
+.permissionUser option{
+    padding-left: 0.30rem;
+}
+/* button de la page ajouter */
+.ba {
+    margin-bottom: 1rem;
+
+}
+/* page index */
+.indexfixe{
+    display: flex;
+    flex-direction: column;
+}
+.blocIndex{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10%;
+}
+.listIndex{
+    margin-left: 10%;
+    color :#fc2727;
+    font-size:large;
+}
+.listIndex a{
+    color: #262626;
+    font-size: x-large;
+    overflow-wrap: break-word;
+    text-decoration: underline dotted rgb(180, 180, 180);
+}
+.listIndex a:hover{
+    color: #262626;
+    font-size: x-large;
+    overflow-wrap: break-word;
+    margin-left: 2px;
+    
+}
+
+.inputSearchIndex {
+    height: 45px;
+    width: 25em;
+    font-size: x-large;
+    vertical-align:sub;
+}
+.recherche2 button{
+    font-size: x-large;
+}
+#logoSnippet {
+    margin: auto;
+}
+.retour{
+    font-size: x-large;
+    margin-top: 10px;
+    color: rgb(107, 107, 107);
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+}
+.retour:hover {
+    color: rgb(46, 45, 45);
+    background-color: rgba(255, 255, 255, 0);
+}
+.avant{
+    font-size: x-large;
+    margin-top: 10px;
+    color: rgb(107, 107, 107);
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+}
+.avant:hover {
+    color: rgb(46, 45, 45);
+    background-color: rgba(255, 255, 255, 0);
+}
+.pages{
+    color: #262626;
+}
+.pages:hover{
+    color:#ef3838;
+}
+.results{
+    margin-left: 25px;
+    font-size: 15px;
+    margin-top: 2em;
+}
+.newsnippet a{
+    margin-left: 25px;
+    color:#262626;
+    text-decoration: underline dotted gray;
+}
+.newsnippet a:hover {
+    color:#a02e2e;
+    text-decoration: underline dotted #a02e2e;
+}
+/* pagination */
+.pagination{
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 4rem;
+}
+/* snippet par tags */
+.tagssnippet h1{
+    color:#262626;
+    margin-top: 10px;
+    text-align: center ;
+    margin-bottom: 120px;
+    font-size: 22px;
+}
+.rien{
+    text-align: center;
+}
+.tagssnippet {
+    height: 100%;
+}
+.tagssnippet li{
+    color :#fc2727;
+    font-size:x-large;
+}
+.tagssnippet a{
+    color: #262626;
+    text-decoration: underline dotted  rgb(180, 180, 180);
+};
+.tagssnippet a:hover{
+    margin-left: 2px;
+}
+.by {
+    font-size: small;
+    color: #262626;
+    text-align: left;
+}
+/* complétion dans ajouter*/
+
+#addSnippetTagsdiv{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    width: 44.5rem;
+    background-color: #fcfafa;
+    margin-left: 10.5rem;
+    border: 1px solid #e9e8e8;
+}
+.addSnippetTagsp{
+    padding-left: 0.8rem;
+    color:#1e2933;
+}
+.addSnippetTagsli{
+    margin-top: 0;
+}
+.addSnippetTagsli:hover {
+    margin-top: 0;
+    background-color: #fae0e0;
+}
+#addSnippetTagsselect {
+    background-color: #fae0e0;
+}  
+
+/* complétion de la navbar*/
+
+#searchSnippetTagsdiv{
+    position: relative;
+    padding-top: 1px;
+    width: 135px;
+    background-color:#676666;
+}
+.searchSnippetTagsp{
+    color:#ffffff;
+    text-align: left;
+}
+.addSnippetTagsli{
+    margin-top: 0;
+}
+.searchSnippetTagsli:hover {
+    margin-top: 0;
+    background-color:#262626;
+    cursor: pointer;
+    
+}
+.searchSnippetTagsul {
+    list-style-type: none;
+    padding-top:0;
+}
+#searchSnippetTagsselect {
+    background-color: #262626;
+} 
+#selectlangage {
+    text-align: center;
+}
+.cardAuthn {
+    background-color: #ffffff;
+    margin: auto;
+    margin-top: 150px;
+    width: 55em;
+    height: 25em;
+    border-radius: 10px;
+}
+.cardAuthn h1{
+    text-align: center;
+    color: #262626;
+}
+.formAuth {
+    text-decoration-color: #262626;
+    display: flex;
+    justify-content: center;
+}
+.formAuth ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.formAuth li{
+    margin-bottom: 1em;
+}
+.formAuth input{
+    height: 20px;
+    width: 35em;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 0.30rem;
+    padding: 0.20rem 0 0.30rem 0.70rem;;
+}
+.formAuth input:focus{
+    outline:2px solid #262626;
+    
+    
+}
+.formAuth label{
+    display: inline-block;
+    width: 10em;
+    text-align: right;
+
+}
+.btnauth {
+    margin-top: 30px;
+}
+.erreurconnexion {
+    text-align: center;
+    background-color: rgba(195, 0, 0, 0.382);
+    padding-bottom: 5px;
+    padding-top: 5px;
+    color:#7b0000;
+}
+.headerlogin{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    position: relative;
+    height:80px;
+    background-color:#262626;
+}
+.headerlogin h1{
+    color :#ffffff;
+}
+/* Page confirmation delete */
+.cardDelete {
+    background-color: #fff9f9;
+    margin: auto;
+    margin-top: 150px;
+    width: 50em;
+    height: 10em;
+    border-radius: 50px;
+    text-align: center;
+}
+.tauth{
+    color: #262626;
+    padding-top: 40px;
+    
+}
+.btndelete {
+    margin-top: 20px;
+}
+/* liste mes snippet */
+.listSnippetVia{
+    display: flex;
+}
+.btssupmodis button {
+    
+    height: 1.3rem;
+    width: 1.3rem;
+    background-color: #fae0e000;
+    border-color: #00000000;
+}
+.btnmodif {
+    background-image: url('images/edit.svg');
+    background-repeat: no-repeat;
+}
+.btnsup{
+    margin-right: 2rem;
+    background-image: url('images/delete.svg');
+    background-repeat: no-repeat;
+}
+.btnmodif:hover {
+    background-image: url('images/editRed.svg');
+    background-repeat: no-repeat;
+}
+.btnsup:hover{
+    background-image: url('images/deleteRed.svg');
+    background-repeat: no-repeat;
+}
+.precesion {
+    color: #2f2f2f;
+    font-size: small;
+}
+.red{
+    color:#7b0000;
+}
+.formGitLab {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+.btnauthgitLab {
+    font-size: 18px;
+    background-color: #0000;
+    border: solid #0000;
+}
+.btnauthgitLab:hover {
+    color: #fc2727;
+    background-color: #0000;
+    border: solid #0000;
+}

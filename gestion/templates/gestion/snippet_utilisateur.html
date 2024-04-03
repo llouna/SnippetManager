@@ -1,0 +1,41 @@
+{% extends './base.html' %}
+{% block title %}Auteur{% endblock %}
+{% block body %}
+<div class="carddetails">
+    <div class="tagssnippet">
+        {% if utilisateur == createur %}
+            <h1>Mes snippets</h1>
+        {% else %}
+            <h1>Snippet(s) de {{ user }}</h1>
+        {% endif %}
+        {% if snippets_auteur %}
+        <ul>
+            {% for snippet in snippets_auteur %}
+            <div class="listSnippetVia">
+                <div class="btssupmodis">
+                    {% if utilisateur == createur %}
+                    <button class="btnmodif" type="button" onclick="location.href='{% url 'gestion:modifier' snippet.slug %}'"></button>
+                    <button class="btnsup" type="button" onclick="location.href='{% url 'gestion:supprimer' snippet.slug %}'"></button>
+                    {% endif %} 
+                </div>
+                
+                <div class="list-messnippet">
+                    <li>
+                        <a href="{% url 'gestion:detail' snippet.slug %}">{{ snippet.nom }}</a>
+                        <p class="by">
+                        {% if snippet.date_maj is not null%}
+                        Dernière modification : {{ snippet.date_maj }}
+                        {% else %}
+                        Date d'ajout : {{ snippet.date_ajout }}
+                        {% endif %}
+                        </p>
+                    </li>
+                </div>
+            </div>
+            <br>
+            {% endfor %}
+        </ul>
+        {% endif %} 
+    </div>
+</div>
+{% endblock %}

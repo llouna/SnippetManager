@@ -1,0 +1,82 @@
+
+        <div class="results">
+            <p>Résultat de la recherche :</p>
+        </div>
+        {% if paginator_global %}
+        <ul class="listIndex">
+
+            {% for reponse in paginator_global %}
+
+                {% if reponse in tagG %}
+                    <li><a href="{% url 'gestion:viaTags' reponse.nom %}">{{ reponse.nom }}</a><span class="precesion"> Tags</span></li>
+                {% endif %}
+
+                {% if reponse in sNomG or reponse in sdescriptionG or reponse in sCodeG %}
+                    <li><a href="{% url 'gestion:detail' reponse.slug %}">{{ reponse.nom }}</a><span class="precesion"> Snippet</span></li>
+                {% endif %}
+
+                {% if reponse in userG %}
+                    <li><a href="{% url 'gestion:viaAuteur' reponse.username %}">{{ reponse.username }}</a><span class="precesion"> Utilisateur</span></li>
+                {% endif %}
+
+                {% if reponse in langageG %}
+                    <li><a href="{% url 'gestion:viaLangages' reponse.nom %}">{{ reponse.nom }}</a><span class="precesion"> Langage</span></li>
+                {% endif %}
+                
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if paginator_global.paginator.num_pages > 1 %}
+        <div class="pagination">
+            <!-- allez a la premier page -->
+            {% if paginator_global.paginator.num_pages > 2 %}
+            <div class="premier">
+                <a class="pages" 
+                hx-get="?rechercheGlobal={{ recherche }}&page=1"
+                hx-target="#search-results"
+                hx-push-url="true"
+                > &laquo; première page</a>
+            </div>
+            {% else %}
+            <div></div>
+            {% endif %}
+
+            <div class="page">
+                <span>
+                    <!-- allez a la page précédente si il y en a une  -->
+                    {% if paginator_global.has_previous %}
+                    <a class="pages" 
+                    hx-get="?rechercheGlobal={{ recherche }}&page={{ paginator_global.previous_page_number }}"
+                    hx-target="#search-results"
+                    hx-push-url="true"
+                    > < </a>
+                    {% endif %}
+                    <span class="pagesur">
+                        Page {{ paginator_global.number }} sur {{ paginator_global.paginator.num_pages }}
+                    </span>
+                    <!-- allez a la page suivante si il y en a une  -->
+                    {% if paginator_global.has_next %}
+                    <a class="pages" 
+                    hx-get="?rechercheGlobal={{ recherche }}&page={{ paginator_global.next_page_number }}" 
+                    hx-target="#search-results"
+                    hx-push-url="true"
+                    > > </a>
+                    {% endif %}
+                </span>    
+            </div>
+            <!-- allez a la dernière page -->
+            {% if paginator_global.paginator.num_pages > 2 %}
+            <div class="dernier">
+                <a class="pages" 
+                hx-get="?rechercheGlobal={{ recherche }}&page={{ paginator_global.paginator.num_pages }}"
+                hx-target="#search-results"
+                hx-push-url="true"
+                > dernière page &raquo;</a>
+            </div>
+            {% else %}
+            <div></div>
+            {% endif %}
+        </div>
+        {% endif %}
+

@@ -1,0 +1,17 @@
+[
+    {
+        "model": "gestion.statut", 
+        "pk": 1, 
+        "fields": {
+        "etat": "Privé"
+        }
+    }, 
+    {
+        "model": "gestion.statut", 
+        "pk": 2, 
+        "fields": {
+            "etat": "Public"
+        }
+    }
+
+]

@@ -1,0 +1,32 @@
+{% extends './base.html' %}
+{% block title %}Langage{% endblock %}
+
+{% block body %}
+<div class="carddetails">
+    <div class="tagssnippet">
+        <h1>Snippet(s) avec le langage : '{{ langages }}' </h1>
+        {% if snippet_langages %}
+        <ul>
+            {% for snippet in snippet_langages %}
+            <li><a href="{% url 'gestion:detail' snippet.slug %}">{{ snippet.nom }}</a>
+                <p class="by">
+                {% if utilisateur == snippet.user.username %}
+                Mon snippet •
+                {% else %}
+                by {{ snippet.user.username }} •
+                {% endif %}
+                {% if snippet.date_maj is not null%}
+                Dernière modification : {{ snippet.date_maj }}
+                {% else %}
+                Date d'ajout : {{ snippet.date_ajout }}
+                {% endif %}
+                </p>
+            </li><br>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="rien">Pas de snippet avec le langage : '{{ langages }}'</p>
+        {% endif %} 
+    </div>
+</div>
+{% endblock %}

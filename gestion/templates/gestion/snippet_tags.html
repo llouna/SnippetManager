@@ -1,0 +1,31 @@
+{% extends './base.html' %}
+{% block title %}tags{% endblock %}
+{% block body %}
+<div class="carddetails">
+    <div class="tagssnippet">
+        <h1>Snippet(s) avec le tags : '{{ tags }}' </h1>
+        {% if snippet_tags %}
+        <ul>
+            {% for snippet in snippet_tags %}
+            <li><a href="{% url 'gestion:detail' snippet.slug %}">{{ snippet.nom }}</a>
+                <p class="by">
+                {% if utilisateur == snippet.user.username %}
+                Mon snippet •
+                {% else %}
+                by {{ snippet.user.username }} •
+                {% endif %}
+                {% if snippet.date_maj is not null%}
+                Dernière modification : {{ snippet.date_maj }}
+                {% else %}
+                Date d'ajout : {{ snippet.date_ajout }}
+                {% endif %}
+                </p>
+            </li><br>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="rien">Pas de snippet avec le tags : '{{ tags }}'</p>
+        {% endif %} 
+    </div>
+</div>
+{% endblock %}

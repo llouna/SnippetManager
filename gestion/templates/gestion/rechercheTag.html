@@ -1,0 +1,9 @@
+
+
+{% if tags_list_result %}
+<ul class="navTags" id="navTags">
+    {% for tag in tags_list_result %}
+    <li><a href="{% url 'gestion:viaTags' tag.nom %}">{{ tag.nom }}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}

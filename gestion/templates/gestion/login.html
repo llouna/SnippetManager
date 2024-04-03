@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+{% load static %}
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'gestion/style.css' %}">
+</head>
+<body>
+    <div class="headerlogin">
+        <a href="{% url 'gestion:index' %}"><h1>Snippet Manager</h1></a>
+    </div>
+    <div class="cardAuthn">
+        {% if erreurs %}
+        <p class="erreurconnexion">{{ erreurs }}</p>
+        {% endif %}
+        <div>
+            <h1 class="tauth">Authentification</h1>
+        </div>
+        <form method="post" action="/accounts/gitlab/login/" class="formGitLab">
+            {% csrf_token %}
+            <button class="btnauthgitLab" type="submit" >Connexion avec <img src="{% static 'gestion/images/gitlab.png' %}" style="width: 20%;margin: -1.4em;"> ?</button>
+        </form>
+        <form action="" class="formAuth" method="post">
+            {% csrf_token %}
+            <ul>
+                <li>
+                    <label>Nom utilisateur :</label>
+                    <input type="text" name="username"/>
+                </li>
+                <li>
+                    <label>Mot de passe :</label>
+                    <input type="password" name="password"/>
+                </li>
+                    <li style="text-align: center;">
+                        <button class="btnauth" type="submit">Connexion</button>
+                    </li>
+                </form>
+            </ul>
+    </div>
+</body>
+</html>

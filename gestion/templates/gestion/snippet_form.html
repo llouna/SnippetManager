@@ -1,0 +1,78 @@
+{% extends './base.html' %}
+{% block title %}Ajout d'un snippet{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div>
+        <h1 class="ta">Nouveau snippet</h1>
+    </div>
+    <form class="fa" method="post">
+        {% csrf_token %}
+        <ul>
+            <li class="ajoutSnippetForm">
+                <label form="nomSnippet">Nom du snippet:</label>
+                <input type="text" name="nom" id="snippet_nom" /><br><p class="erreur">{{ erreurs1 }}</p>
+            </li>
+            <li class="ajoutSnippetForm">
+                <label form="descriptionSnippet">Description:</label>
+                <textarea class="textdesc" type="text" name="description" id="description"></textarea>
+                <p class="erreur">{{ erreurs2 }}</p>
+            </li>
+            <li class="ajoutSnippetForm">
+                <label form="codeSnippet">Code:</label>
+                <select onchange="selectMode()" id="selectlangage" name="langage">
+                    <option value="None" selected>langage</option>
+                    {% for language in langages %}
+                    <option value="{{ language.nomCodeMirror }}">{{ language.nom }}</option>
+                    {% endfor %}
+                </select>
+                <p class="erreur" style="margin-left: 0;">{{ erreurs4 }}</p>
+            <li class="li-textarea" style="margin-left: 135px;">
+                <textarea id="snippetcode" name="code" ></textarea>
+                
+            </li>
+            <p class="erreur">{{ erreurs3 }}</p>
+            <li>
+                <label form="tagsajout">Tags:</label>
+                <input type="text" name="listtags" class="completion" autocomplete="off" id="addSnippetTags" />
+            </li>
+            <li>
+                 <p style="margin-left: 10.5rem;padding-top: 3rem;padding-bottom: 2rem;">Autorisation :</p> 
+                <div class="autorisation">
+                    <div>
+                        <input name="statut" class="checkbox" type="checkbox">
+                        <label style="text-align: left;">Public</label>
+                    </div>
+                    <div>
+                        <label>Qui peut modifier:</label>
+                        <select class="permissionUser" multiple name="permissionUser">
+                            {% for user in permissionUser %}
+                                <option value="{{ user.username }}">{{ user.username }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+            </li>
+            <li style="text-align: center;">
+                <button class="ba" type="submit">Ajouter le snippet</button>
+            </li>
+        </ul>
+    </form>
+</div>
+<script>
+let code = CodeMirror.fromTextArea(document.getElementById("snippetcode"), {
+    lineNumbers: true,  
+    theme: 'base16-light',
+    startOpen: true,
+});
+let codeMode = document.getElementById("selectlangage");
+function selectMode(){
+    let mode = codeMode.options[codeMode.selectedIndex].value;
+    code.setOption("mode", mode);
+    location.hash = "#" + mode;
+}
+
+</script>
+{% endblock %}
+
